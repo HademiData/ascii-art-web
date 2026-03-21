@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html  lang="">
+
+    <head>
+        <title>ASCII ART WEB</title>
+    </head>
+    <body>
+        <h1> ASCII ART GENERATOR</h1>
+
+        <form action="/ascii-art" method="POST">
+
+            <input type="text" name="inputString" placeholder="Enter text">
+
+            <br><br>
+            <input type="radio" name="banner" value="standard" checked>Standard
+            <input type="radio" name="banner" value="shadow">Shadow
+            <input type="radio" name="banner" value="thinkertoy">Thinkertoy
+
+            <br><br>
+
+            <button type="submit">Generate Art</button>
+        </form>
+    
+            <pre style="font-family: monospace; line-height:1.1;">{{.Result}}</pre>
+
+    </body>
+</html>
