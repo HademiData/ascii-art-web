@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html  lang="">
+<html  lang="en">
 
     <head>
         <title>ASCII ART WEB</title>
@@ -10,7 +10,7 @@
 
         <form action="/ascii-art" method="POST">
 
-            <input type="text" name="inputString" placeholder="Enter text">
+            <input type="text" name="inputString" placeholder="Enter text" value="{{.InputString}}">
 
             <br><br>
             <input type="radio" name="banner" value="standard" checked>Standard
@@ -18,11 +18,16 @@
             <input type="radio" name="banner" value="thinkertoy">Thinkertoy
 
             <br><br>
+            
 
             <button type="submit">Generate Art</button>
         </form>
+
+        <ul>
+                <h1>Generated Ascii Art</h1>
+        </ul>
     
-            <pre style="font-family: monospace; line-height:1.1;">{{.Result}}</pre>
+        <pre style="font-family: monospace; line-height:1.1;">{{.Result}}</pre>
 
     </body>
 </html>

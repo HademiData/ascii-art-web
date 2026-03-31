@@ -33,9 +33,6 @@ func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 
 	text := r.FormValue("inputString")
 	banner := r.FormValue("banner")
-	if banner == "" && text != "" {
-		banner = "standard"
-	}
 
 	if text == "" {
 		http.Error(w, "500: Empty text", http.StatusBadRequest)
@@ -64,9 +61,11 @@ func AsciiHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Result string
+		Result      string
+		InputString string
 	}{
-		Result: result,
+		Result:      result,
+		InputString: text,
 	}
 
 	templ.Execute(w, data)
