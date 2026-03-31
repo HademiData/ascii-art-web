@@ -9,21 +9,21 @@ import (
 // ----------- PARSER ----------------
 func ParseBanner(bannerType string) (map[rune][]string, error) {
 
-	charMap := make(map[rune][]string, 95)
-
 	path := filepath.Join("banners", bannerType+".txt")
 	bannerFile, err := os.ReadFile(path)
 	if err != nil {
-		return charMap, err
+		return nil, err
 	}
 	banner := strings.ReplaceAll(string(bannerFile), "\r\n", "\n")
 	lines := strings.Split(banner, "\n")
 
 	var block []string
-	code := 32 //ASCII space
+	code := 32                             //ASCII space
+	charMap := make(map[rune][]string, 95) // declaring a map with exactly 95 char: block pair
 
 	for _, line := range lines {
-		line = strings.TrimRight(line, "\r")
+
+		line = strings.TrimRight(line, "\r") // for windows file lines
 		if line == "" {
 			if len(block) > 0 {
 				charMap[rune(code)] = block
@@ -34,9 +34,9 @@ func ParseBanner(bannerType string) (map[rune][]string, error) {
 			block = append(block, line)
 		}
 	}
-	if len(block) > 0 {
-		charMap[rune(code)] = block
-	}
+	// Maping the last Printable character.
+	charMap[rune(code)] = block
+
 	return charMap, nil
 }
 
@@ -59,13 +59,10 @@ func PrintBannertoArt(text string, charMap map[rune][]string) string {
 
 			for _, char := range line {
 				block, ok := charMap[char]
-
 				if ok {
 					if row < len(block) {
 						builder.WriteString(block[row])
 					}
-				} else {
-					continue
 				}
 			}
 			result = append(result, strings.TrimRight(builder.String(), " "))
